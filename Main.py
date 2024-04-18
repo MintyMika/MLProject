@@ -1,56 +1,58 @@
 import torch
-
 import torch.nn as nn
 import torch.optim as optim
+from torch.utils.data import DataLoader
+from torchvision import transforms
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Define your PyTorch model for music segmentation
-class MusicSegmentationModel(nn.Module):
-    def __init__(self):
-        super(MusicSegmentationModel, self).__init__()
-        # Define your model architecture here
+# Creating the dataset
+'''
+Each playlist is a JSON file with the following structure:
+{
+        "name": "musical",
+        "collaborative": "false",
+        "pid": 5,
+        "modified_at": 1493424000,
+        "num_albums": 7,
+        "num_tracks": 12,
+        "num_followers": 1,
+        "num_edits": 2,
+        "duration_ms": 2657366,
+        "num_artists": 6,
+        "tracks": [
+            {
+                "pos": 0,
+                "artist_name": "Degiheugi",
+                "track_uri": "spotify:track:7vqa3sDmtEaVJ2gcvxtRID",
+                "artist_uri": "spotify:artist:3V2paBXEoZIAhfZRJmo2jL",
+                "track_name": "Finalement",
+                "album_uri": "spotify:album:2KrRMJ9z7Xjoz1Az4O6UML",
+                "duration_ms": 166264,
+                "album_name": "Dancing Chords and Fireflies"
+            },
+            {
+                "pos": 1,
+                "artist_name": "Degiheugi",
+                "track_uri": "spotify:track:23EOmJivOZ88WJPUbIPjh6",
+                "artist_uri": "spotify:artist:3V2paBXEoZIAhfZRJmo2jL",
+                "track_name": "Betty",
+                "album_uri": "spotify:album:3lUSlvjUoHNA8IkNTqURqd",
+                "duration_ms": 235534,
+                "album_name": "Endless Smile"
+            },
+            {
+                "pos": 2,
+                "artist_name": "Degiheugi",
+                "track_uri": "spotify:track:1vaffTCJxkyqeJY7zF9a55",
+                "artist_uri": "spotify:artist:3V2paBXEoZIAhfZRJmo2jL",
+                "track_name": "Some Beat in My Head",
+                "album_uri": "spotify:album:2KrRMJ9z7Xjoz1Az4O6UML",
+                "duration_ms": 268050,
+                "album_name": "Dancing Chords and Fireflies"
+            },
+'''
+'''
 
-    def forward(self, x):
-        # Implement the forward pass of your model here
-        pass
+'''
 
-def main():
-    # Check if GPU is available
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print("Using device:", device)
-
-    # Load the input playlist and output song
-    input_playlist = load_playlist("input_playlist.txt")
-    output_song = load_song("output_song.txt")
-
-    # Preprocess the data, e.g., convert audio to spectrograms
-
-    # Create an instance of your model
-    model = MusicSegmentationModel().to(device)
-
-    # Define loss function and optimizer
-    criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
-
-    # Training loop
-    for epoch in range(num_epochs):
-        # Forward pass
-        inputs = preprocess_data(input_playlist).to(device)
-        targets = preprocess_data(output_song).to(device)
-        outputs = model(inputs)
-
-        # Compute loss
-        loss = criterion(outputs, targets)
-
-        # Backward pass and optimization
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-        # Print training progress
-        print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}")
-
-    # Save the trained model
-    torch.save(model.state_dict(), "music_segmentation_model.pth")
-
-if __name__ == "__main__":
-    main()
