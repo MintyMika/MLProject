@@ -53,6 +53,41 @@ Each playlist is a JSON file with the following structure:
             },
 '''
 '''
+From the JSON file, we can make tensors of the following:
+Track Name, Artist Name, Album Name, Duration
+
+From this we can make a dataset of the following:
+Track Name, Artist Name, Album Name, Duration, Playlist Name
+
+We can then use this dataset to train a model to predict the playlist name given the other features
 
 '''
+
+class Song():
+    def __init__(self, track_name, artist_name, album_name, duration):
+        self.track_name = track_name
+        self.artist_name = artist_name
+        self.album_name = album_name
+        self.duration = duration
+    
+    def getTensor(self):
+        return torch.tensor([self.track_name, self.artist_name, self.album_name, self.duration])
+
+    def __str__(self):
+        return "Track Name: " + self.track_name + "\nArtist Name: " + self.artist_name + "\nAlbum Name: " + self.album_name + "\nDuration: " + str(self.duration)
+
+
+class UniquePlaylist():
+    def __init__(self, name):
+        self.name = name
+        self.songs = []
+    
+    def addSong(self, song):
+        self.songs.append(song)
+    
+    def getTensor(self):
+        return torch.tensor([song.getTensor() for song in self.songs])
+
+    def __str__(self):
+        return "Playlist Name: " + self.name + "\nSongs: \n" + "\n".join([str(song) for song in self.songs])
 
