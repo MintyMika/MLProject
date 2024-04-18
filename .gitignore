@@ -3,3 +3,4 @@ __pychache__/
 .env
 .venv/
 idea/
+.conda/
