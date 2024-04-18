@@ -5,6 +5,8 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+import json
 
 # Creating the dataset
 '''
@@ -70,6 +72,9 @@ class Song():
         self.album_name = album_name
         self.duration = duration
     
+    def get_track_name(self):
+        return self.track_name
+
     def getTensor(self):
         return torch.tensor([self.track_name, self.artist_name, self.album_name, self.duration])
 
@@ -82,6 +87,15 @@ class UniquePlaylist():
         self.name = name
         self.songs = []
     
+    def getName(self):
+        return self.name
+    
+    def getNumSongs(self):
+        return len(self.songs)
+    
+    def setName(self, name):
+        self.name = name
+
     def addSong(self, song):
         self.songs.append(song)
     
@@ -91,3 +105,43 @@ class UniquePlaylist():
     def __str__(self):
         return "Playlist Name: " + self.name + "\nSongs: \n" + "\n".join([str(song) for song in self.songs])
 
+
+def createPlaylistsfromJSON(json_obj):
+    playlists = json_obj
+    playlists = playlists["playlists"]
+    # print(playlist[0])
+    playlist_objects = []
+    
+    total_songs_in_file = 0
+    for playlist in playlists:
+        a_playlist = UniquePlaylist(playlist["name"])
+        # print("_______________________________")
+        # print(a_playlist.getName())
+        songs = playlist["tracks"]
+        # print(songs[0])
+        for song in playlist["tracks"]:
+            tempSong = Song(song["track_name"], song["artist_name"], song["album_name"], song["duration_ms"])
+            print("\t", tempSong.get_track_name())
+            a_playlist.addSong(tempSong)
+            total_songs_in_file += 1
+
+        # print(a_playlist.getNumSongs())
+        playlist_objects.append(a_playlist)
+
+    # print("Total songs in file: ", total_songs_in_file)
+    return playlist_objects
+
+
+def main():
+    # Load one JSON file and create a playlist object then print it
+    # Load the JSON file
+    
+    data = open(r"Dataset\data\mpd.slice.0-999.json", "r")
+    playlists = json.load(data)
+    data.close()
+    playlists = createPlaylistsfromJSON(playlists)
+    
+
+
+if __name__ == "__main__":
+    main()
