@@ -1,2 +1,5 @@
 Dataset/
 __pychache__/
+.env
+.venv/
+idea/
