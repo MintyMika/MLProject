@@ -20,7 +20,9 @@ def main():
     # print the number of playlists in 1,000,000 format
     print(f"Number of playlists: {len(playlists):,}")
 
-    pass
+    
+
+    return
 
 
 if __name__ == "__main__":
