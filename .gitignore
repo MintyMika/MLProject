@@ -1,6 +1,7 @@
 Dataset/
+/__pychache__/
 __pychache__/
 .env
 .venv/
-idea/
+.idea/
 .conda/
