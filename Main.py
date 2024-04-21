@@ -9,7 +9,7 @@ import os
 import json
 from time import sleep
 from alive_progress import alive_bar
-import getDataset as gd
+import formatDataset as gd
 
 
 def main():
