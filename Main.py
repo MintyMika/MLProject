@@ -14,13 +14,19 @@ import getDataset as gd
 
 def main():
     
-    # Creating the dataset
+    numOfSongs = 2262292 # 2,262,292 is the number of unique songs in the dataset
+
+    # Load and prepare the dataset
     
     playlists = gd.getPlaylists() # This returns a list of UniquePlaylist objects there should be 1 million of them
     # print the number of playlists in 1,000,000 format
     print(f"Number of playlists: {len(playlists):,}")
 
-    
+
+    # Creating the ML
+
+
+
 
     return
 
