@@ -30,7 +30,7 @@ with alive_bar(num_files) as bar:
 
 
 # open a file to write the dictionary to
-file_name = r"Dataset\dictOfURIs.json"
+file_name = r"src\dictOfURIs.json"
 
 # Only count the songs that appear more than 50 times
 newDictOfURIs = {}
