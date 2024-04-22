@@ -40,7 +40,7 @@ for key, value in dictOfURIs.items():
         newDictOfURIs.update({key: value})
         dictofArtists.update({key: value[1]})
 
-# with open(file_name, "w") as f:
-#     json.dump(dictofArtists, f)
+with open(file_name, "w") as f:
+    json.dump(dictofArtists, f)
 
 print(f"Number of Artists: {len(newDictOfURIs):,}")

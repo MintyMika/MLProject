@@ -2,7 +2,7 @@ import os
 import json
 import pandas as pd
 from alive_progress import alive_bar
-from sklearn.model_selection import train_test_split
+import threading
 
 dictOfArtists = json.load(open(r"src\dictOfArtists.json", "r"))
 
@@ -24,10 +24,6 @@ with alive_bar(num_files) as bar:
     for file in os.listdir(dataset_path):
         with open(os.path.join(dataset_path, file), "r") as f:
             data = json.load(f)
-            # Stop after 10 files
-            # iters += 1
-            # if iters == 10:
-            #     break
             for playlist in data["playlists"]:
                 list_of_artists = []
                 for song in playlist["tracks"]:
@@ -37,6 +33,7 @@ with alive_bar(num_files) as bar:
                         else:
                             dictOfPlaylists[playlist["pid"]].extend([numberedArtists[song["artist_uri"]] for song in playlist["tracks"] if song["artist_uri"] in dictOfArtists])
         bar()
+    
 
 # Save the dictionary to a file
 with open(r"src\AllPlaylists.json", "w") as f:
