@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import time
+from alive_progress import alive_bar
 
 # Check if CUDA is available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -11,10 +12,14 @@ print("Using device:", device)
 
 # Read the text file and parse each line to get the list of artists
 artists_data = []
-with open('PlaylistVectors.txt', 'r') as file:
-    for line in file:
-        artists = ast.literal_eval(line.strip())
-        artists_data.append(artists)
+with open('Dataset\src\PlaylistVectors.txt', 'r') as file:
+    print("Reading file...")
+    num_lines = 10000  # Number of lines in the file
+    with alive_bar(num_lines) as bar:
+        for line in file:
+            artists = ast.literal_eval(line.strip())
+            artists_data.append(artists)
+            bar()
 
 # Function to generate random pairs of artists from a list
 def generate_random_artist_pairs(artists):
@@ -26,10 +31,13 @@ def generate_random_artist_pairs(artists):
 
 # Generate training data
 training_data = []
-for artists in artists_data:
-    random_pairs = generate_random_artist_pairs(artists)
-    for pair in random_pairs:
-        training_data.append(pair)
+print("Generating training data...")
+with alive_bar(len(artists_data)) as bar:
+    for artists in artists_data:
+        random_pairs = generate_random_artist_pairs(artists)
+        for pair in random_pairs:
+            training_data.append(pair)
+        bar()
 
 # Shuffle training data
 random.shuffle(training_data)
@@ -42,6 +50,7 @@ num_artists = len(artist_to_id)
 training_data_ids = [(artist_to_id[artist1], artist_to_id[artist2]) for artist1, artist2 in training_data]
 
 # Split data into input and target
+print("Splitting data...")
 X = torch.tensor([data[0] for data in training_data_ids], dtype=torch.float).view(-1, 1).to(device)  # Reshape for single feature
 y = torch.tensor([data[1] for data in training_data_ids], dtype=torch.long).to(device)
 
@@ -73,12 +82,15 @@ start_time = time.time()
 
 # Train the model
 num_epochs = 10
-for epoch in range(num_epochs):
-    optimizer.zero_grad()
-    outputs = model(X)
-    loss = criterion(outputs, y)
-    loss.backward()
-    optimizer.step()
+print("Training model...")
+with alive_bar(num_epochs) as bar:
+    for epoch in range(num_epochs):
+        optimizer.zero_grad()
+        outputs = model(X)
+        loss = criterion(outputs, y)
+        loss.backward()
+        optimizer.step()
+        bar()
 
 # Calculate the elapsed time
 elapsed_time = time.time() - start_time
