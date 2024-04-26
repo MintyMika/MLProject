@@ -1,29 +1,24 @@
-import pandas as pd
-import random
-import ast
-from sklearn.preprocessing import OneHotEncoder
-
-# Function to generate random pairs of artistNum from a list
-def generate_random_pairs(artistNum):
-    pairs = set()  # Using a set to avoid duplicate pairs
-    while len(pairs) < 3:  # Generate 3 unique pairs
-        pair = tuple(random.sample(artistNum, 2))  # Randomly select two artistNum
-        pairs.add(pair)  # Add the pair to the set
-    return list(pairs)  # Convert set to list for consistent order
+import numpy as np
 
 
-# Open the file
-with open('test.txt', 'r') as file:
-    # Iterate over each line in the file
-    for line in file:
-        # Convert the string representation of list to a Python list
-        artistNum = ast.literal_eval(line.strip())
+# Read the file and extract the artist IDs
+with open("Dataset/src/test.txt", "r") as file:
+    artists = [int(line.strip()) for line in file]
 
-        # Generate random pairs of artistNum
-        random_pairs = generate_random_pairs(artistNum)
+# Determine the number of unique artists
+num_artists = len(set(artists))
 
-        # Print or store the random pairs
-        print(random_pairs)
+# Initialize an empty one-hot encoding matrix
+one_hot_matrix = np.zeros((len(artists), num_artists))
+
+# Iterate through each artist and set the corresponding one-hot encoding
+for i, artist_id in enumerate(artists):
+    one_hot_matrix[i, artist_id - 1] = 1  # Subtract 1 to adjust for 0-based indexing
+
+# Print the one-hot encoding matrix
+print(one_hot_matrix)
+
+
 
 """
 #Extract categorical columns from the dataframe

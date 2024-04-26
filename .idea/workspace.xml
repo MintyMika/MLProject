@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb63569f-9d35-498a-89f7-28b37d1538c0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ANN.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example-playlist.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oneHotEncoding.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataloader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANN.py" beforeDir="false" afterPath="$PROJECT_DIR$/ANN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oneHotEncoding.py" beforeDir="false" afterPath="$PROJECT_DIR$/oneHotEncoding.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +34,7 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;seon&quot;
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
 }</component>
   <component name="RecentsManager">

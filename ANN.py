@@ -12,7 +12,7 @@ print("Using device:", device)
 
 # Read the text file and parse each line to get the list of artists
 artists_data = []
-with open('Dataset\src\PlaylistVectors.txt', 'r') as file:
+with open(r'Dataset\src\test.txt', 'r') as file:
     print("Reading file...")
     num_lines = 10000  # Number of lines in the file
     with alive_bar(num_lines) as bar:
